@@ -2,10 +2,10 @@ package com.example.listo.dto;
 
 import lombok.Data;
 
-import java.security.acl.Owner;
 
 @Data
-public class RestaurantRegisterDto {
+public class RestaurantDto {
+    private Long id;
     private String name;
     private String location;
     private int capacity;

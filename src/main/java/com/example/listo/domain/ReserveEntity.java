@@ -1,6 +1,7 @@
 package com.example.listo.domain;
 
 
+import com.example.listo.vo.commonenum.ReservationStatus;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -45,6 +46,7 @@ public class ReserveEntity {
     public ReserveEntity(int time, int count, RestaurantEntity restaurant, GuestEntity guest) {
         this.time = time;
         this.count = count;
+        restaurant.removeCapacity(count);
         this.setRestaurant(restaurant);
         this.setGuest(guest);
     }

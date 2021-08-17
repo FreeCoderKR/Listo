@@ -1,6 +1,7 @@
 package com.example.listo.domain;
 
 import com.example.listo.common.BaseTimeEntity;
+import com.example.listo.error.NoAvailableReservaitonException;
 import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -41,5 +42,17 @@ public class RestaurantEntity extends BaseTimeEntity {
     public void setOwner(OwnerEntity owner) {
         owner.setRestaurant(this);
         this.owner = owner;
+    }
+
+    public void addCapacity(int reserveCount){
+        this.capacity+=reserveCount;
+
+    }
+    public void removeCapacity(int reserveCount){
+        int tempCapacity = this.capacity-reserveCount;
+        if(tempCapacity<0){
+            throw new NoAvailableReservaitonException("Reservation Not Available. only"+this.capacity+" is available at the time");
+        }
+        this.capacity=tempCapacity;
     }
 }

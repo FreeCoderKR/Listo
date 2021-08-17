@@ -1,8 +1,7 @@
 package com.example.listo.service;
 
-import com.example.listo.dto.RegisterDto;
-import com.example.listo.dto.RestaurantRegisterDto;
+import com.example.listo.dto.RestaurantDto;
 
 public interface RestaurantService {
-    RestaurantRegisterDto register(RestaurantRegisterDto registerDto);
+    RestaurantDto register(RestaurantDto registerDto);
 }
