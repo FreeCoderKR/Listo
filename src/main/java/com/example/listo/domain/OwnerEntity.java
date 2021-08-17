@@ -26,4 +26,6 @@ public class OwnerEntity extends BaseTimeEntity {
 
 
 
+
+
 }

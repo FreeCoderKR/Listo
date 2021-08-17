@@ -6,6 +6,8 @@ import lombok.NonNull;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -23,7 +25,8 @@ public class GuestEntity extends BaseTimeEntity{
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "guest")
+    private List<ReserveEntity> reserves = new ArrayList<>();
 
 
 

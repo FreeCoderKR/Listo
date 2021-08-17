@@ -5,6 +5,8 @@ import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -31,6 +33,9 @@ public class RestaurantEntity extends BaseTimeEntity {
 
     @OneToOne(mappedBy = "restaurant", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private OwnerEntity owner;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
+    private List<ReserveEntity> reserves = new ArrayList<>();
 
 
     public void setOwner(OwnerEntity owner) {
