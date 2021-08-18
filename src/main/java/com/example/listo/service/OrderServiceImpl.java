@@ -1,13 +1,8 @@
 package com.example.listo.service;
 
 import com.example.listo.domain.*;
-import com.example.listo.dto.OrderReqDto;
-import com.example.listo.dto.OrderResDto;
-import com.example.listo.dto.ReservationResDto;
-import com.example.listo.repository.GuestRepository;
-import com.example.listo.repository.MenuRepository;
-import com.example.listo.repository.OrderRepository;
-import com.example.listo.repository.RestaurantRepository;
+import com.example.listo.dto.*;
+import com.example.listo.repository.*;
 import com.example.listo.vo.commonenum.ReservationStatus;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -24,6 +19,9 @@ public class OrderServiceImpl implements OrderService{
     private final GuestRepository guestRepository;
     private final RestaurantRepository restaurantRepository;
     private final MenuRepository menuRepository;
+    private final ReviewRepository reviewRepository;
+
+
 
     @Override
     public OrderResDto makeOrder(OrderReqDto reqDto) {
@@ -38,16 +36,38 @@ public class OrderServiceImpl implements OrderService{
             OrderEntity order = new OrderEntity(guestEntity, restaurantEntity, orderMenus);
             OrderEntity savedOrder = orderRepository.save(order);
 
-
-
-
+            OrderResDto orderResDto = new OrderResDto();
+            orderResDto.setOrderId(savedOrder.getId());
+            orderResDto.setOrderDate(savedOrder.getOrderDate());
+            orderResDto.setStatus(savedOrder.getStatus());
+            orderResDto.setRestaurantName(restaurantEntity.getName());
+            orderResDto.setOrderPersonName(guestEntity.getUser().getName());
+            return orderResDto;
 
 
         }catch (Exception e){
-            ReservationResDto errorDto = new ReservationResDto();
+            OrderResDto errorDto = new OrderResDto();
             errorDto.setMsg(e.getMessage());
-            errorDto.setStatus(ReservationStatus.REJECTED);
             return errorDto;
         }
+
+
+    }
+    @Override
+    public ReviewResDto writeReview(ReviewReqDto reqDto, Long orderId) {
+        OrderEntity orderEntity = orderRepository.findByIdFetch(orderId)
+                .orElseThrow(()->new RuntimeException("There is no Order with id"+Long.toString(orderId)));
+        ReviewEntity reviewEntity = new ReviewEntity(reqDto.getPoint(), reqDto.getComment(), orderEntity);
+        ReviewEntity save = reviewRepository.save(reviewEntity);
+        ReviewResDto reviewResDto = new ReviewResDto();
+        reviewResDto.setId(save.getId());
+        reviewResDto.setOrderId(orderId);
+        reviewResDto.setPoint(save.getPoint());
+        reviewResDto.setComment(save.getComment());
+        reviewResDto.setGuestName(orderEntity.getGuest().getUser().getName());
+        reviewResDto.setRestaurantName(orderEntity.getRestaurant().getName());
+        return reviewResDto;
+
+
     }
 }

@@ -1,5 +1,6 @@
 package com.example.listo.domain;
 
+import com.example.listo.common.BaseTimeEntity;
 import com.example.listo.error.OutOfStockException;
 import lombok.Data;
 import org.aspectj.weaver.ast.Or;
@@ -9,7 +10,7 @@ import javax.persistence.*;
 @Data
 @Entity
 @Table(name = "order_menu")
-public class OrderMenuEntity {
+public class OrderMenuEntity extends BaseTimeEntity {
 
     @Id @GeneratedValue
     @Column(name = "order_menu_id")
@@ -36,6 +37,7 @@ public class OrderMenuEntity {
             throw new OutOfStockException("there is no stock available");
         }
         menu.setStock(result);
+        this.setCount(count);
         this.setMenu(menu);
     }
     public void cancelOrderMenu(MenuEntity menu, int count){

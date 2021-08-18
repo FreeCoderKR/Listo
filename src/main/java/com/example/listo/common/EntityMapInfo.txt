@@ -1,0 +1,17 @@
+Owner <-> 식당
+
+사용자->Owner(x)
+Owner, Guest  -> 사용자
+
+식당->Menu 단방향
+OrderItem->Menu 단방향
+
+주문->OrderItem 양방향
+
+
+Guest<->예약
+식당<->예약
+
+Guest : ->사용자 단방향, Guest<-> 예약 양방향, Guest<->주문 양방향
+
+Menu : 식당-> 메뉴 단방향, 주문상품->메뉴 단방향

@@ -45,12 +45,11 @@ public class RestaurantServiceImpl implements RestaurantService{
                 .orElseThrow(() -> new RuntimeException("there is no restaurant matching that id"));
         MenuEntity menuEntity = new MenuEntity(reqDto.getName(), reqDto.getPrice(), reqDto.getStock(), restaurant);
         MenuEntity save = menuRepository.save(menuEntity);
-        MenuEntity findOne = menuRepository.findByIdFetch(save.getId()).orElseThrow(() -> new RuntimeException("there is no menu matching that id"));
         MenuResDto menuResDto = new MenuResDto();
-        menuResDto.setMenuId(findOne.getId());
-        menuResDto.setMenuName(findOne.getName());
-        menuResDto.setPrice(findOne.getPrice());
-        menuResDto.setStock(findOne.getStock());
+        menuResDto.setMenuId(save.getId());
+        menuResDto.setMenuName(save.getName());
+        menuResDto.setPrice(save.getPrice());
+        menuResDto.setStock(save.getStock());
         return menuResDto;
 
     }

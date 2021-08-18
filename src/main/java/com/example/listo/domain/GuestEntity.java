@@ -32,7 +32,7 @@ public class GuestEntity extends BaseTimeEntity{
     private List<ReserveEntity> reserves = new ArrayList<>();
 
     @OneToMany(mappedBy = "guest", cascade = CascadeType.ALL)
-    private List<OrderEntity> orders;
+    private List<OrderEntity> orders =new ArrayList<>();
 
     public GuestEntity(UserEntity user) {
         this.user = user;

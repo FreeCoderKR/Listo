@@ -1,16 +1,18 @@
 package com.example.listo.domain;
 
+import com.example.listo.common.BaseTimeEntity;
 import com.example.listo.vo.commonenum.OrderStatus;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Data
-@Table(name = "order")
-public class OrderEntity {
+@Table(name = "orders")
+public class OrderEntity extends BaseTimeEntity {
 
     @Id @GeneratedValue
     @Column(name = "order_id")
@@ -25,9 +27,13 @@ public class OrderEntity {
     private RestaurantEntity restaurant;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderMenuEntity> orderMenus;
+    private List<OrderMenuEntity> orderMenus = new ArrayList<>();
 
     private LocalDateTime orderDate;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "review_id")
+    private ReviewEntity review;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
@@ -49,11 +55,21 @@ public class OrderEntity {
         this.orderMenus = orderMenus;
     }
 
+    public OrderEntity() {
+    }
+
     public OrderEntity(GuestEntity guest, RestaurantEntity restaurant, List<OrderMenuEntity> orderMenus){
         this.setGuest(guest);
         this.setRestaurant(restaurant);
         this.setOrderMenus(orderMenus);
         this.setStatus(OrderStatus.ORDERED);
         this.setOrderDate(LocalDateTime.now());
+    }
+    public int getTotalPriceAndQuantity(List<OrderMenuEntity> orderMenus){
+        int totalPrice=0;
+        for (OrderMenuEntity orderMenu : orderMenus) {
+            totalPrice+=orderMenu.getMenu().getPrice()*orderMenu.getCount();
+        }
+        return totalPrice;
     }
 }
