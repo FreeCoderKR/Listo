@@ -1,8 +1,9 @@
 package com.example.listo.service;
 
-import com.example.listo.dto.GuestDto;
+import com.example.listo.dto.GuestResDto;
 
 public interface GuestService {
 
-    public GuestDto findGuest(Long guestId);
+    public GuestResDto findGuest(Long guestId);
+
 }

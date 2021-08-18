@@ -24,8 +24,10 @@ public class OwnerEntity extends BaseTimeEntity {
     @JoinColumn(name = "restaurant_id")
     private RestaurantEntity restaurant;
 
+    public OwnerEntity(UserEntity user) {
+        this.user = user;
+    }
+    public OwnerEntity(){
 
-
-
-
+    }
 }

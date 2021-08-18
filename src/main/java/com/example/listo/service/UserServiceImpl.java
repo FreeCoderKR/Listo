@@ -3,7 +3,8 @@ package com.example.listo.service;
 import com.example.listo.domain.GuestEntity;
 import com.example.listo.domain.OwnerEntity;
 import com.example.listo.domain.UserEntity;
-import com.example.listo.dto.RegisterDto;
+import com.example.listo.dto.UserReqDto;
+import com.example.listo.dto.UserResDto;
 import com.example.listo.repository.GuestRepository;
 import com.example.listo.repository.OwnerRepository;
 import com.example.listo.vo.commonenum.Role;
@@ -19,27 +20,28 @@ public class UserServiceImpl implements UserService{
     private final OwnerRepository ownerRepository;
     private final BCryptPasswordEncoder passwordEncoder;
     @Override
-    public RegisterDto createUser(RegisterDto dto) {
+    public UserResDto createUser(UserReqDto dto) {
         String encPassword = passwordEncoder.encode(dto.getPassword());
         ModelMapper modelMapper = new ModelMapper();
         UserEntity user = modelMapper.map(dto, UserEntity.class);
         user.setEncPassword(encPassword);
         Long id;
         if(dto.getRole().equals(Role.OWNER)){
-            OwnerEntity owner = new OwnerEntity();
-            owner.setUser(user);
+            OwnerEntity owner = new OwnerEntity(user);
             OwnerEntity save = ownerRepository.save(owner);
             id= save.getId();
 
         }else{
-            GuestEntity guest = new GuestEntity();
-            guest.setUser(user);
+            GuestEntity guest = new GuestEntity(user);
             GuestEntity save = guestRepository.save(guest);
             id= save.getId();
 
         }
-        dto.setId(id);
-        return dto;
+        UserResDto resDto = modelMapper.map(user, UserResDto.class);
+        resDto.setRole(dto.getRole());
+        resDto.setId(id);
+        return resDto;
 
     }
+
 }

@@ -1,7 +1,9 @@
 package com.example.listo.service;
 
-import com.example.listo.dto.RegisterDto;
+import com.example.listo.dto.UserReqDto;
+import com.example.listo.dto.UserResDto;
 
 public interface UserService {
-    RegisterDto createUser(RegisterDto dto);
+    UserResDto createUser(UserReqDto dto);
+
 }

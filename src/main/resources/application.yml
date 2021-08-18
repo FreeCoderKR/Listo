@@ -10,6 +10,7 @@ spring:
     hibernate:
       ddl-auto: create
     show-sql: true
+    format_sql: true
     generate-ddl: true
     properties:
       hibernate.default_batch_fetch_size: 1000

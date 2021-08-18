@@ -1,7 +1,8 @@
 package com.example.listo.service;
 
-import com.example.listo.dto.ReservationDto;
+import com.example.listo.dto.ReservationReqDto;
+import com.example.listo.dto.ReservationResDto;
 
 public interface ReservationService {
-    ReservationDto register(ReservationDto reservationDto, Long restaurantId, Long guestId);
+    ReservationResDto register(ReservationReqDto reservationReqDto);
 }

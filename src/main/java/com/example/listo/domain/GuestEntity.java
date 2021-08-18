@@ -1,8 +1,10 @@
 package com.example.listo.domain;
 
 import com.example.listo.common.BaseTimeEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NonNull;
+import org.aspectj.weaver.ast.Or;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
@@ -25,10 +27,17 @@ public class GuestEntity extends BaseTimeEntity{
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "guest")
+
+    @OneToMany(mappedBy = "guest", cascade = CascadeType.ALL)
     private List<ReserveEntity> reserves = new ArrayList<>();
 
+    @OneToMany(mappedBy = "guest", cascade = CascadeType.ALL)
+    private List<OrderEntity> orders;
 
+    public GuestEntity(UserEntity user) {
+        this.user = user;
+    }
+    public GuestEntity(){
 
-
+    }
 }

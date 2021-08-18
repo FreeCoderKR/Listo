@@ -1,11 +1,11 @@
-package com.example.listo.vo.request;
+package com.example.listo.dto;
 
 import lombok.Data;
 
+
 @Data
-public class RestaurantRegisterRequest {
+public class RestaurantReqDto {
     private String name;
     private String location;
     private int capacity;
-
 }

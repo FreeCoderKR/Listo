@@ -38,21 +38,25 @@ public class RestaurantEntity extends BaseTimeEntity {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
     private List<ReserveEntity> reserves = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
+    private List<MenuEntity> menus = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
+    private List<OrderEntity> orders = new ArrayList<>();
+
 
     public void setOwner(OwnerEntity owner) {
         owner.setRestaurant(this);
         this.owner = owner;
     }
 
-    public void addCapacity(int reserveCount){
-        this.capacity+=reserveCount;
-
+    public RestaurantEntity(String name, int capacity, String location, OwnerEntity owner) {
+        this.name = name;
+        this.capacity = capacity;
+        this.location = location;
+        this.setOwner(owner);
     }
-    public void removeCapacity(int reserveCount){
-        int tempCapacity = this.capacity-reserveCount;
-        if(tempCapacity<0){
-            throw new NoAvailableReservaitonException("Reservation Not Available. only"+this.capacity+" is available at the time");
-        }
-        this.capacity=tempCapacity;
+    public RestaurantEntity(){
+
     }
 }

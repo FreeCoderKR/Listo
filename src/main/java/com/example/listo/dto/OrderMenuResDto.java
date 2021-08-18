@@ -1,4 +1,4 @@
 package com.example.listo.dto;
 
-public class LoginDto {
+public class OrderMenuResDto {
 }
