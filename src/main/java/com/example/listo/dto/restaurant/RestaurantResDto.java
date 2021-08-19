@@ -12,6 +12,7 @@ public class RestaurantResDto {
     private Long id;
     private String name;
     private String location;
+    private String phone;
     private int capacity;
     private OwnerOnlyResDto owner;
     private List<MenuResDto> menus;

@@ -7,7 +7,11 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@Table(name = "user")
+@Table(name = "user", uniqueConstraints={
+        @UniqueConstraint(
+                columnNames={"role","email"}
+        )
+})
 public abstract class UserEntity extends BaseTimeEntity {
 
     @Id
@@ -22,8 +26,11 @@ public abstract class UserEntity extends BaseTimeEntity {
     private String email;
 
     @Column(nullable = false)
-    private String encPassword;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
+    @Column(nullable = false)
+    private String encPassword;
 
     @Column(nullable = false)
     private String phone;

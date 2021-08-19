@@ -9,7 +9,6 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@Table(name = "owner")
 public class OwnerEntity extends UserEntity {
 
     @Id @GeneratedValue
@@ -19,7 +18,6 @@ public class OwnerEntity extends UserEntity {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "restaurant_id")
     private RestaurantEntity restaurant;
-
     private int businessNumber;
 
 

@@ -10,23 +10,19 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name = "guest")
 public class GuestEntity extends UserEntity {
 
     @Id @GeneratedValue
     @Column(name = "guest_id")
     private Long id;
-
-    @ColumnDefault("1")
-    private int grade;
-    @Column(name = "guest_nick")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "guest_grade")
+    private Grade grade;
+    @Column(name = "nick_name")
     private String nick;
 
     @OneToMany(mappedBy = "guest", cascade = CascadeType.ALL)
     private List<ReserveEntity> reserves = new ArrayList<>();
-
-    @OneToMany(mappedBy = "guest", cascade = CascadeType.ALL)
-    private List<MyCouponEntity> coupons = new ArrayList<>();
 
 
 
