@@ -14,4 +14,6 @@ public class GuestOnlyResDto {
     private String phone;
     private String nick;
     private Grade grade;
+
+
 }

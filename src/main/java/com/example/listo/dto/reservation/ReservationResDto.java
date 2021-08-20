@@ -6,6 +6,7 @@ import com.example.listo.dto.restaurant.RestaurantOnlyResDto;
 import com.example.listo.dto.user.guest.GuestOnlyResDto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
+import org.modelmapper.ModelMapper;
 
 import java.time.LocalDate;
 
@@ -25,10 +26,13 @@ public class ReservationResDto {
     }
 
     public ReservationResDto(ReserveEntity reserveEntity) {
-        this.id=reserveEntity.getId();
-        this.date=reserveEntity.getDate();
-        this.time=reserveEntity.getTime();
-        this.count=reserveEntity.getCount();
-        this.status=reserveEntity.getStatus();
+        ModelMapper modelMapper = new ModelMapper();
+        this.setGuest(modelMapper.map(reserveEntity.getGuest(), GuestOnlyResDto.class));
+        this.setRestaurant(new RestaurantOnlyResDto(reserveEntity.getRestaurant()));
+        this.setStatus(reserveEntity.getStatus());
+        this.setCount(reserveEntity.getCount());
+        this.setDate(reserveEntity.getDate());
+        this.setTime(reserveEntity.getTime());
+        this.setId(reserveEntity.getId());
     }
 }

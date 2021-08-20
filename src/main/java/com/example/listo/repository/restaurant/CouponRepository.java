@@ -8,5 +8,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CouponRepository extends JpaRepository<CouponEntity, Long> {
-    Optional<List<CouponEntity>> findAllByRestaurantId(Long restaurantId);
+    List<CouponEntity> findAllByRestaurantId(Long restaurantId);
 }

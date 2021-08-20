@@ -1,4 +1,4 @@
-package com.example.listo.controller.user;
+package com.example.listo.controller;
 
 
 import com.example.listo.dto.user.guest.GuestOnlyResDto;

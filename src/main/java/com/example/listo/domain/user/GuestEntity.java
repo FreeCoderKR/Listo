@@ -25,7 +25,8 @@ public class GuestEntity extends UserEntity {
 
     @OneToMany(mappedBy = "guest", cascade = CascadeType.ALL)
     private List<ReserveEntity> reserves = new ArrayList<>();
-
+    @OneToMany(mappedBy = "guest", cascade = CascadeType.ALL)
+    private List<MyCouponEntity> mycoupons = new ArrayList<>();
 
 
 }

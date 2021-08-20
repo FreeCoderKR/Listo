@@ -1,4 +1,4 @@
-package com.example.listo.controller.order;
+package com.example.listo.controller;
 
 import com.example.listo.dto.order.*;
 import com.example.listo.service.order.OrderService;

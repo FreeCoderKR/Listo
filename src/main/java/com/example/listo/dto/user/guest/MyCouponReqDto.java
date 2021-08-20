@@ -1,4 +1,4 @@
-package com.example.listo.dto.restaurant;
+package com.example.listo.dto.user.guest;
 
 import lombok.Data;
 

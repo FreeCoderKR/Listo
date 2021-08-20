@@ -27,6 +27,9 @@ public class CouponEntity extends BaseTimeEntity {
     @JoinColumn(name = "restaurant_id")
     private RestaurantEntity restaurant;
 
+    public CouponEntity() {
+    }
+
     public CouponEntity(String name, CouponType type, int value, int durationDay, RestaurantEntity restaurant) {
         this.name = name;
         this.type = type;

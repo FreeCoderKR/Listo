@@ -37,6 +37,12 @@ public class RestaurantEntity extends BaseTimeEntity {
     @Column(name = "operating_status", nullable = false)
     private RestaurantStatus status;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
+    private List<OperateEntity> operates = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
+    private List<RestEntity> rests = new ArrayList<>();
+
     @OneToOne(mappedBy = "restaurant", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private OwnerEntity owner;
 

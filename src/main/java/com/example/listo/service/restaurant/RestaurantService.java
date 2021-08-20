@@ -1,6 +1,7 @@
 package com.example.listo.service.restaurant;
 
 import com.example.listo.dto.restaurant.*;
+import com.example.listo.dto.user.guest.MyCouponResDto;
 
 import java.util.List;
 
@@ -27,8 +28,6 @@ public interface RestaurantService {
     CouponOnlyResDto updateCoupon(CouponUpdateReqDto reqDto, Long couponId);
 
     void deleteCoupon(Long couponId);
-
-    List<MyCouponResDto> getAllMyCoupon(Long guestId);
 
     void downloadMyCoupon(Long couponId, Long guestId);
 }

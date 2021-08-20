@@ -1,11 +1,11 @@
-package com.example.listo.controller.user;
+package com.example.listo.controller;
 
+import com.example.listo.dto.user.guest.MyCouponReqDto;
+import com.example.listo.dto.user.guest.MyCouponResDto;
 import com.example.listo.dto.user.guest.GuestOnlyResDto;
 import com.example.listo.dto.user.guest.GuestResDto;
 import com.example.listo.dto.user.guest.GuestUpdateReqDto;
 import com.example.listo.dto.user.register.GuestReqDto;
-import com.example.listo.dto.user.register.UserRegisterResDto;
-import com.example.listo.error.NoDataWithIdException;
 import com.example.listo.service.user.GuestService;
 import com.example.listo.service.user.UserService;
 import lombok.RequiredArgsConstructor;
@@ -47,6 +47,8 @@ public class GuestController {
         guestService.deleteGuest(guestId);
         return ResponseEntity.ok("Successfully Deleted");
     }
+
+
 
 
 

@@ -2,12 +2,18 @@ package com.example.listo.service.restaurant;
 
 import com.example.listo.domain.restaurant.CouponEntity;
 import com.example.listo.domain.restaurant.MenuEntity;
+import com.example.listo.domain.user.MyCouponEntity;
+import com.example.listo.domain.user.GuestEntity;
 import com.example.listo.domain.user.OwnerEntity;
 import com.example.listo.domain.restaurant.RestaurantEntity;
 import com.example.listo.dto.restaurant.*;
+import com.example.listo.dto.user.guest.MyCouponResDto;
+import com.example.listo.error.DuplicateDataException;
 import com.example.listo.error.NoDataWithIdException;
 import com.example.listo.repository.restaurant.CouponRepository;
 import com.example.listo.repository.restaurant.MenuRepository;
+import com.example.listo.repository.user.MyCouponRepository;
+import com.example.listo.repository.user.GuestRepository;
 import com.example.listo.repository.user.OwnerRepository;
 import com.example.listo.repository.restaurant.RestaurantRepository;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +34,8 @@ public class RestaurantServiceImpl implements RestaurantService{
     private final RestaurantRepository restaurantRepository;
     private final MenuRepository menuRepository;
     private final CouponRepository couponRepository;
+    private final MyCouponRepository myCouponRepository;
+    private final GuestRepository guestRepository;
     @Override
     public RestaurantOnlyResDto register(RestaurantReqDto reqDto) {
         ModelMapper modelMapper = new ModelMapper();
@@ -107,8 +115,7 @@ public class RestaurantServiceImpl implements RestaurantService{
 
     @Override
     public List<CouponOnlyResDto> getAllCoupon(Long restaurantId) {
-        List<CouponEntity> couponEntities = couponRepository.findAllByRestaurantId(restaurantId)
-                .orElseThrow(() -> new NoDataWithIdException());
+        List<CouponEntity> couponEntities = couponRepository.findAllByRestaurantId(restaurantId);
         return couponEntities.stream().map(couponEntity -> new CouponOnlyResDto(couponEntity)).collect(Collectors.toList());
     }
 
@@ -148,13 +155,23 @@ public class RestaurantServiceImpl implements RestaurantService{
 
     }
 
-    @Override
-    public List<MyCouponResDto> getAllMyCoupon(Long guestId) {
-        return null;
-    }
+
 
     @Override
     public void downloadMyCoupon(Long couponId, Long guestId) {
+        GuestEntity guestEntity = guestRepository.findById(guestId).orElseThrow(() -> new NoDataWithIdException());
+        CouponEntity couponEntity = couponRepository.findById(couponId).orElseThrow(() -> new NoDataWithIdException());
+        MyCouponEntity myCouponEntity = new MyCouponEntity(guestEntity, couponEntity);
+        //중복 다운로드 체크
+        duplicateCouponDownloadCheck(couponId, guestId);
+        myCouponRepository.save(myCouponEntity);
 
+    }
+
+    private void duplicateCouponDownloadCheck(Long couponId, Long guestId) {
+        MyCouponEntity myCouponEntity = myCouponRepository.findByGuestIdAndCouponId(guestId, couponId);
+        if(myCouponEntity != null){
+            throw new DuplicateDataException();
+        }
     }
 }

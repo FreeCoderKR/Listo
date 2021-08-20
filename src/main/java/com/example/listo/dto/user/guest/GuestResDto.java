@@ -18,6 +18,7 @@ public class GuestResDto {
     private String nick;
     private Grade grade;
     private List<ReservationOnlyResDto> reservations;
+    private List<MyCouponResDto> coupons;
 
 
 
