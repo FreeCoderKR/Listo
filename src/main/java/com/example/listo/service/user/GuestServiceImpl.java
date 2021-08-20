@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -44,8 +45,8 @@ public class GuestServiceImpl implements GuestService{
     @Override
     public GuestOnlyResDto updateGuest(Long guestId, GuestUpdateReqDto request) {
         GuestEntity guestEntity = guestRepository.findById(guestId).orElseThrow(() -> new NoDataWithIdException());
-        guestEntity.setNick(request.getNickname());
-        guestEntity.setPhone(request.getPhone());
+        guestEntity.setNick(Optional.ofNullable(request.getNickname()).orElse(guestEntity.getNick()));
+        guestEntity.setPhone(Optional.ofNullable(request.getPhone()).orElse(guestEntity.getPhone()));
         ModelMapper mapper = new ModelMapper();
         GuestOnlyResDto guestResDto = mapper.map(guestEntity, GuestOnlyResDto.class);
         return guestResDto;
@@ -53,7 +54,7 @@ public class GuestServiceImpl implements GuestService{
 
     @Override
     public void deleteGuest(Long guestId) {
-        guestRepository.findById(guestId).orElseThrow(() -> new NoDataWithIdException());
-        guestRepository.deleteById(guestId);
+        GuestEntity guestEntity = guestRepository.findById(guestId).orElseThrow(() -> new NoDataWithIdException());
+        guestRepository.delete(guestEntity);
     }
 }

@@ -2,7 +2,7 @@ package com.example.listo.domain.order;
 
 import com.example.listo.common.BaseTimeEntity;
 import com.example.listo.domain.restaurant.CouponType;
-import com.example.listo.domain.user.MyCouponEntity;
+import com.example.listo.domain.restaurant.MyCouponEntity;
 import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
 

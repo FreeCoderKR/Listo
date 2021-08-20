@@ -3,6 +3,7 @@ package com.example.listo.domain.user;
 import com.example.listo.domain.reservation.ReserveEntity;
 import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @Entity
 @Data
+@DynamicUpdate
 public class GuestEntity extends UserEntity {
 
     @Id @GeneratedValue

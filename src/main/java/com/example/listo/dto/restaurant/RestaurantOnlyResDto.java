@@ -1,9 +1,11 @@
 package com.example.listo.dto.restaurant;
 
 import com.example.listo.domain.restaurant.RestaurantEntity;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class RestaurantOnlyResDto {
     private Long id;
     private String name;
@@ -11,6 +13,9 @@ public class RestaurantOnlyResDto {
     private String phone;
     private int capacity;
     private RestaurantStatus status;
+
+    public RestaurantOnlyResDto() {
+    }
 
     public RestaurantOnlyResDto(RestaurantEntity restaurantEntity) {
         this.id = restaurantEntity.getId();

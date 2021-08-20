@@ -18,6 +18,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,15 +26,15 @@ public class OwnerServiceImpl implements OwnerService{
     private final OwnerRepository ownerRepository;
     @Override
     public void deleteOwner(Long ownerId) {
-        ownerRepository.findById(ownerId).orElseThrow(() -> new NoDataWithIdException());
-        ownerRepository.deleteById(ownerId);
+        OwnerEntity ownerEntity = ownerRepository.findById(ownerId).orElseThrow(() -> new NoDataWithIdException());
+        ownerRepository.delete(ownerEntity);
     }
 
     @Override
     public OwnerOnlyResDto updateOwner(Long ownerId, OwnerUpdateReqDto request) {
         OwnerEntity ownerEntity = ownerRepository.findById(ownerId).orElseThrow(() -> new NoDataWithIdException());
-        ownerEntity.setBusinessNumber(request.getBusinessNumber());
-        ownerEntity.setPhone(request.getPhone());
+        ownerEntity.setBusinessNumber(Optional.ofNullable(request.getBusinessNumber()).orElse(ownerEntity.getBusinessNumber()));
+        ownerEntity.setPhone(Optional.ofNullable(request.getPhone()).orElse(ownerEntity.getPhone()));
         ModelMapper mapper = new ModelMapper();
         return mapper.map(ownerEntity, OwnerOnlyResDto.class);
     }

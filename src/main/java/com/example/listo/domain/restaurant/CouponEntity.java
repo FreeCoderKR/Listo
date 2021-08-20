@@ -21,11 +21,17 @@ public class CouponEntity extends BaseTimeEntity {
     @Column(name = "coupon_value")
     private int value;
     @Column(name = "coupon_duration")
-    private int duration;
+    private int durationDay;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
     private RestaurantEntity restaurant;
 
-
+    public CouponEntity(String name, CouponType type, int value, int durationDay, RestaurantEntity restaurant) {
+        this.name = name;
+        this.type = type;
+        this.value = value;
+        this.durationDay = durationDay;
+        this.restaurant = restaurant;
+    }
 }

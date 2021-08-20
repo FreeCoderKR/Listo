@@ -2,6 +2,7 @@ package com.example.listo.domain.user;
 
 import com.example.listo.common.BaseTimeEntity;
 import lombok.Data;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 
@@ -12,6 +13,7 @@ import javax.persistence.*;
                 columnNames={"role","email"}
         )
 })
+@DynamicUpdate
 public abstract class UserEntity extends BaseTimeEntity {
 
     @Id

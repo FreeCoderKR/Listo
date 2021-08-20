@@ -6,5 +6,5 @@ import javax.persistence.GeneratedValue;
 
 @Getter
 public enum CouponType {
-    PRICE,FREE,RATE
+    PRICE,RATE
 }

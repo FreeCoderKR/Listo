@@ -1,6 +1,7 @@
-package com.example.listo.domain.user;
+package com.example.listo.domain.restaurant;
 
 import com.example.listo.domain.restaurant.CouponEntity;
+import com.example.listo.domain.user.GuestEntity;
 import lombok.Data;
 
 import javax.persistence.*;

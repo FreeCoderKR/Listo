@@ -5,6 +5,7 @@ import com.example.listo.domain.user.OwnerEntity;
 import com.example.listo.dto.restaurant.RestaurantStatus;
 import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "restaurant")
+@DynamicUpdate
 public class RestaurantEntity extends BaseTimeEntity {
     @Id
     @GeneratedValue

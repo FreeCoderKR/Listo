@@ -8,6 +8,8 @@ import javax.validation.constraints.Size;
 
 @Data
 public class MenuReqDto {
+    @NotNull
+    private Long restaurantId;
     @NotEmpty
     private String name;
     @NotNull
